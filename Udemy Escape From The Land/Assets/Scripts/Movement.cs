@@ -5,11 +5,13 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     Rigidbody rb;
+    AudioSource rocketSound;
     [SerializeField] float mainThrust = 100f;
     [SerializeField] float rotateThrust = 100f;
     void Start() 
     {
         rb = GetComponent<Rigidbody>();
+        rocketSound = GetComponent<AudioSource>();
     }
     // Update is called once per frame
     void Update()
@@ -23,6 +25,14 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+            if (!rocketSound.isPlaying)
+            {
+                rocketSound.Play();
+            }
+        }
+        else
+        {
+            rocketSound.Stop();            
         }
     }
 
