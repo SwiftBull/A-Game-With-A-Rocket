@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    Rigidbody rb;
-    AudioSource rocketSound;
+    //PARAMETERS - Things to tune in the editor
     [SerializeField] float mainThrust = 100f;
     [SerializeField] float rotateThrust = 100f;
+    [SerializeField] AudioClip mainThrustSound;
+    //CACHED DATA
+    Rigidbody rb;
+    AudioSource rocketSound;
+    
     void Start() 
     {
         rb = GetComponent<Rigidbody>();
@@ -27,7 +31,7 @@ public class Movement : MonoBehaviour
             rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
             if (!rocketSound.isPlaying)
             {
-                rocketSound.Play();
+                rocketSound.PlayOneShot(mainThrustSound, 1);
             }
         }
         else
