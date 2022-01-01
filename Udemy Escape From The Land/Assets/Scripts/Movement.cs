@@ -15,8 +15,6 @@ public class Movement : MonoBehaviour
     //CACHED DATA
     Rigidbody rb;
     AudioSource rocketSound;
-
-
     
     void Start() 
     {
@@ -34,45 +32,48 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
-            if (!rocketSound.isPlaying)
-            {
-                rocketSound.PlayOneShot(mainThrustSound, 1);
-            }
-            if(!mainThrustPart.isPlaying)
-            {
-                mainThrustPart.Play();
-            }
+            StartThrust();
         }
         else
         {
-            rocketSound.Stop();  
-            mainThrustPart.Stop();          
+            StopThrusting();
         }
     }
 
-    void ProcessRotation()
+    void StartThrust()
+    {
+        rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+        if (!rocketSound.isPlaying)
+        {
+            rocketSound.PlayOneShot(mainThrustSound, 1);
+        }
+        if (!mainThrustPart.isPlaying)
+        {
+            mainThrustPart.Play();
+        }
+    }
+
+    private void StopThrusting()
+    {
+        rocketSound.Stop();
+        mainThrustPart.Stop();
+    }
+
+        void ProcessRotation()
     {
         if (Input.GetKey(KeyCode.A))
         {
             Rotate(rotateThrust);
-            if(!rightThrustPart.isPlaying)
-            {
-                rightThrustPart.Play();
-            }
+            ThrustParticleProcessing(rightThrustPart);
         }
         else if (Input.GetKey(KeyCode.D))
         {
             Rotate(-rotateThrust);
-            if(!leftThrustPart.isPlaying)
-            {
-                leftThrustPart.Play();
-            }
+            ThrustParticleProcessing(leftThrustPart);
         }
         else
         {
-           leftThrustPart.Stop();
-           rightThrustPart.Stop();
+            StopDirectionalThrust();
         }
     }
 
@@ -81,5 +82,19 @@ public class Movement : MonoBehaviour
         rb.freezeRotation = true; //freezeing so we can manually rotate
         transform.Rotate(Vector3.forward * RotationThisFrame * Time.deltaTime);
         rb.freezeRotation = false; //so the physics system can do its thing
+    }
+
+        void ThrustParticleProcessing(ParticleSystem thrustPart)
+    {
+        if(!thrustPart.isPlaying)
+            {
+                thrustPart.Play();
+            }
+    }
+
+    void StopDirectionalThrust()
+    {
+        leftThrustPart.Stop();
+        rightThrustPart.Stop();
     }
 }
