@@ -8,6 +8,9 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] AudioClip explosionSound;
     [SerializeField] AudioClip winSound;
 
+    [SerializeField] ParticleSystem explosionPart;
+    [SerializeField] ParticleSystem winPart;
+
     AudioSource collisionSound;
 
     bool isTransitioning = false;
@@ -19,6 +22,8 @@ public class CollisionHandler : MonoBehaviour
 
     void OnCollisionEnter(Collision other) 
     {
+        if(isTransitioning) {return;}
+
         switch (other.gameObject.tag)
         {
             case "Friendly":
@@ -35,24 +40,23 @@ public class CollisionHandler : MonoBehaviour
 
     void StartSuccessProcess()
     {
+        
+        isTransitioning = true;
+        collisionSound.Stop();
+        winPart.Play();
         collisionSound.PlayOneShot(winSound, 1);
-        //also add a particle effect when Success
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", nextLevelTime);
     }
 
     void CrashSesquence()
     {
-        if(!isTransitioning)
-        {
-            collisionSound.PlayOneShot(explosionSound, 1);
-            GetComponent<Movement>().enabled = false;
-            Invoke("Respawn", nextLevelTime);
-            //also add a particle effect when crash
-        }
-        
-        
-        
+        isTransitioning = true;
+        collisionSound.Stop();
+        explosionPart.Play();
+        collisionSound.PlayOneShot(explosionSound, 1);
+        GetComponent<Movement>().enabled = false;
+        Invoke("Respawn", nextLevelTime);
     }
 
     void Respawn()

@@ -8,9 +8,15 @@ public class Movement : MonoBehaviour
     [SerializeField] float mainThrust = 100f;
     [SerializeField] float rotateThrust = 100f;
     [SerializeField] AudioClip mainThrustSound;
+    [SerializeField] ParticleSystem mainThrustPart;
+    [SerializeField] ParticleSystem leftThrustPart;
+    [SerializeField] ParticleSystem rightThrustPart;
+
     //CACHED DATA
     Rigidbody rb;
     AudioSource rocketSound;
+
+
     
     void Start() 
     {
@@ -33,10 +39,15 @@ public class Movement : MonoBehaviour
             {
                 rocketSound.PlayOneShot(mainThrustSound, 1);
             }
+            if(!mainThrustPart.isPlaying)
+            {
+                mainThrustPart.Play();
+            }
         }
         else
         {
-            rocketSound.Stop();            
+            rocketSound.Stop();  
+            mainThrustPart.Stop();          
         }
     }
 
@@ -45,10 +56,23 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             Rotate(rotateThrust);
+            if(!rightThrustPart.isPlaying)
+            {
+                rightThrustPart.Play();
+            }
         }
         else if (Input.GetKey(KeyCode.D))
         {
             Rotate(-rotateThrust);
+            if(!leftThrustPart.isPlaying)
+            {
+                leftThrustPart.Play();
+            }
+        }
+        else
+        {
+           leftThrustPart.Stop();
+           rightThrustPart.Stop();
         }
     }
 
