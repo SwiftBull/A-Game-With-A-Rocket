@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
-    [SerializeField] float nextLevelTime = 1.5f;
+    [SerializeField] float nextLevelTime = 1.601f;
     [SerializeField] AudioClip explosionSound;
     [SerializeField] AudioClip winSound;
 
