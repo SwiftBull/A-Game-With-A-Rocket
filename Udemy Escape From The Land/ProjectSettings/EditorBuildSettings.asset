@@ -9,6 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/Over.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Under.unity
-    guid: 2dd5446a6099d644b82a8352633bc32e
+    path: Assets/Scenes/Easy Level.unity
+    guid: 46ceac569c346aa4eae1fac7426a59cb
+  - enabled: 1
+    path: Assets/Scenes/Fly high up.unity
+    guid: b17bd59b4220be640a83ae83eae82d77
+  - enabled: 1
+    path: Assets/Scenes/over under.unity
+    guid: 374c845b290808b4db6a79459c968c78
+  - enabled: 1
+    path: Assets/Scenes/Many Tight Spots.unity
+    guid: a6d198a6064b33c47842609aa6eb4c07
+  - enabled: 1
+    path: Assets/Scenes/A Tight Spot.unity
+    guid: a1be0b071514cd84a8a82a9941489162
+  - enabled: 1
+    path: Assets/Scenes/EndScreen.unity
+    guid: 8b64e8c2136a08440bdd933b2b7b8093
   m_configObjects: {}

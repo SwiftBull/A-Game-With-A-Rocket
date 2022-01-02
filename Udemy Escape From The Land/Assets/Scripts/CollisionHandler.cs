@@ -11,6 +11,8 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] ParticleSystem explosionPart;
     [SerializeField] ParticleSystem winPart;
 
+    public int currentSceneIndex;
+
     AudioSource collisionSound;
 
     bool isTransitioning = false;
@@ -19,11 +21,6 @@ public class CollisionHandler : MonoBehaviour
     void Start() 
     {
         collisionSound = GetComponent<AudioSource>();
-    }
-
-    void Update() 
-    {
-        DebugProcess();
     }
 
     void OnCollisionEnter(Collision other) 
@@ -71,7 +68,7 @@ public class CollisionHandler : MonoBehaviour
         SceneManager.LoadScene(currentSceneIndex);
     }
 
-    void LoadNextLevel()
+    public void LoadNextLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
@@ -80,17 +77,5 @@ public class CollisionHandler : MonoBehaviour
             nextSceneIndex = 0;
         }
         SceneManager.LoadScene(nextSceneIndex);
-    }
-
-    void DebugProcess()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            LoadNextLevel();
-        }
-        else if (Input.GetKeyDown(KeyCode.C))
-        {
-            collisionDisabled = !collisionDisabled; //toggles collision
-        }
     }
 }
